@@ -40,7 +40,7 @@ export default class Page {
   }
 
   async initComponents () {
-    const to = new Date();
+    const to = new Date('2020-05-26');
     const from = new Date(to.getTime() - (30 * 24 * 60 * 60 * 1000));
     const [ordersData, salesData, customersData] = await this.getDataForColumnCharts(from, to);
 
@@ -51,7 +51,8 @@ export default class Page {
 
     const sortableTable = new SortableTable(header, {
       url: `api/dashboard/bestsellers?_start=1&_end=20&from=${from.toISOString()}&to=${to.toISOString()}`,
-      isSortLocally: true
+      isSortLocally: true,
+      link: 'products/'
     });
 
     const ordersChart = new ColumnChart({

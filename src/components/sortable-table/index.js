@@ -65,6 +65,7 @@ export default class SortableTable {
       id: headersConfig.find(item => item.sortable).id,
       order: 'asc'
     },
+    link = '',
     isSortLocally = false,
     step = 20,
     start = 1,
@@ -78,6 +79,7 @@ export default class SortableTable {
     this.step = step;
     this.start = start;
     this.end = end;
+    this.link = link
 
     this.render();
   }
@@ -169,6 +171,13 @@ export default class SortableTable {
   }
 
   getTableRows (data) {
+    if(this.link){
+      return data.map(item => `
+        <a href="${this.link}${item.id}" class="sortable-table__row">
+          ${this.getTableRow(item, data)}
+        </a>`
+      ).join('');
+    }
     return data.map(item => `
       <div class="sortable-table__row">
         ${this.getTableRow(item, data)}
